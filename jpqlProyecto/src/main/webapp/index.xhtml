@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+             <p:growl id="msg"/>
+            <h:panelGrid columns="2">
+            <p:outputLabel value="Persona"/>
+            <p:selectOneMenu value="#{notaController.persona.codigo}">
+                <f:selectItem itemLabel="seleccione una persona" itemValue="" noSelectionOption="true"/>
+                <f:selectItems value="#{personaController.listaPersona}" var="per" itemLabel="#{per.nombres}" itemValue="#{per.codigo}" />
+            </p:selectOneMenu>
+            <p:outputLabel value="Categoria"/>
+            <p:selectOneMenu value="#{notaController.categoria.codigo}">
+                <f:selectItem itemLabel="seleccione persona" itemValue="" noSelectionOption="true"/>
+                <f:selectItems value="#{categoriaController.listaCategoria}" var="cat" itemLabel="#{cat.nombre}" itemValue="#{cat.codigo}" />
+            </p:selectOneMenu>
+            <p:outputLabel value="Encabezado"/>
+            <p:inputText value="#{notaController.nota.encabezado}"/>
+            <p:outputLabel value="Cuerpo"/>
+            <p:inputText value="#{notaController.nota.cuerpo}"/>
+            <p:outputLabel value="Comentario Administrador"/>
+            <p:inputText value="#{notaController.nota.comentarioAdmin}"/>
+            <p:outputLabel value="Valoracion"/>
+            <p:inputText value="#{notaController.nota.valoracion}"/>
+            <p:commandButton value="Enviar" actionListener="#{notaController.insertar()}" update="msg"/>
+            <p:commandButton value="consulta" actionListener="#{notaController.consultar()}" update=":tabla"/>
+        </h:panelGrid>    
+        </h:form>
+        
+        
+        
+        <p:dataTable value="#{notaController.listaNota}" var="ver" id="tabla">
+            <p:column headerText="Codigo">
+                <p:outputLabel value="#{ver.codigo}"/>
+            </p:column>
+            <p:column headerText="Codigo Persona">
+                <p:outputLabel value="#{ver.codigo_persona.nombres}"/>
+            </p:column>
+            <p:column headerText="Codigo Categoria">
+                <p:outputLabel value="#{ver.codigo_categoria.nombre}"/>
+            </p:column>
+            <p:column headerText="Encabezado">
+                <p:outputLabel value="#{ver.encabezado}"/>
+            </p:column>
+            <p:column headerText="Cuerpo">
+                <p:outputLabel value="#{ver.cuerpo}"/>
+            </p:column>
+            <p:column headerText="Fecha Creacion">
+                <p:outputLabel value="#{ver.fecha}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+                </p:outputLabel>
+            </p:column>
+            <p:column headerText="Comentarios Admin">
+                <p:outputLabel value="#{ver.comentarioAdmin}"/>
+            </p:column>
+            <p:column headerText="Valoracion">
+                <p:outputLabel value="#{ver.valoracion}"/>
+            </p:column>
+            
+        </p:dataTable>
+    </h:body>
+</html>
+
